@@ -27,9 +27,9 @@ uint8_t IMU_Config(void)
 		return 1;
 	}
 	usleep(20000);
-	// if(BMP280_Init()){
-	// 	return 1;
-	// }
+	if(BMP280_Init()){
+		return 1;
+	}
 
 	IMU_Reset();
 	//CONFIG GYRO
@@ -95,10 +95,10 @@ void IMU_GetData(double *AccX, double *AccY, double *AccZ,
 
 	for(cycle = 0; cycle < 4; cycle++)
 	{
-		// while(IMU_ReadReg(i2cFd, GYRO_ADDRESS, DR_STATUS)==0){}
+		while(IMU_ReadReg(i2cFd, GYRO_ADDRESS, DR_STATUS)==0){}
 
-		// if(Count >= 2)
-		// {
+		if(Count >= 2)
+		{
 			//Zero offset: 0.266599, -0.358561, 0.527586
 			//K: 1.030080, 0.987872, 1.003745
 			axx = (double)IMU_Read2Regs(i2cFd, A_M_ADDRESS, ACCEL_XOUT_H)/1674.27636 * 1.0271 - 0.2392;	//UNIT: M/S/S
@@ -121,18 +121,18 @@ void IMU_GetData(double *AccX, double *AccY, double *AccZ,
 			mzz = (double)IMU_Read2Regs(i2cFd, A_M_ADDRESS, MAG_ZOUT_H)/13.5 + 64.491019;
 			MZ += LPFoperator(&MZL, mzz);
 			
-		// 	Count = 0;
-		// }
-		// Count++;
+			Count = 0;
+		}
+		Count++;
 
-		// gxx = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_XOUT_H)/64.0;	//UNIT: DEGREE/S
-		// GX += gxx;
+		gxx = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_XOUT_H)/64.0;	//UNIT: DEGREE/S
+		GX += gxx;
 		
-		// gyy = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_YOUT_H)/64.0;
-		// GY += gyy;
+		gyy = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_YOUT_H)/64.0;
+		GY += gyy;
 		
-		// gzz = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_ZOUT_H)/64.0;
-		// GZ += gzz;
+		gzz = (double)IMU_Read2Regs(i2cFd, GYRO_ADDRESS, GYRO_ZOUT_H)/64.0;
+		GZ += gzz;
 		usleep(2500);
 	}
 	//Gyroscope bias: x: 0.254143, y: 0.090195, z: 0.410551
