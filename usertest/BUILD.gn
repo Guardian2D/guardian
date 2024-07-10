@@ -1,0 +1,61 @@
+# import("//build/lite/config/component/lite_component.gni")
+# lite_component("ledmain_test") {
+#   features = [ ":ledmain" ]
+# }
+
+# need_link_mpp_lib = true
+# if (need_link_mpp_lib) {
+#   mpp_lib_path = "//device/soc/hisilicon/hi3516dv300/sdk_linux/out"
+# }
+
+# executable("ledmain") {
+#   output_name = "ledmain"
+#   sources = [ 
+#     "src/ledmain.c",
+#     "sdk_linux/sample/taurus/switch_demo/switch_demo.c",
+#     ]
+
+#   include_dirs = [ 
+#     "./",
+#     "include",
+#     "//device/soc/hisilicon/hi3516dv300/sdk_linux/sample/taurus/switch_demo",
+#     "//device/soc/hisilicon/hi3516dv300/sdk_linux/include",
+#     "//third_party/bounds_checking_function/include",
+#     ]
+
+#   if (need_link_mpp_lib) {
+#     outdir = rebase_path("$mpp_lib_path/lib")
+#     ldflags = [ "-L$outdir" ]
+#     ldflags += [ "-lsecurec" ]
+#   }
+# }
+
+
+# # import("//build/ohos.gni")
+
+# # ohos_executable("ledmain") {
+# #   sources = [
+# #     "src/ledmain.c",
+# #     # "src/gpioled.c"
+# #   ]
+
+# #   include_dirs = [
+# #     "include",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/drivers/hdf/framework/include/utils",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/drivers/hdf/framework/include/platform",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/drivers/hdf/framework/include/osal",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/drivers/hdf/khdf/osal/include",
+# #     "//kernel/linux/linux-5.10/include",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/arch/alpha/include",
+# #     "//out/hispark_taurus/ipcamera_hispark_taurus_linux/kernel/linux-5.10/include/uapi",
+# #   ]
+
+# #   cflags = []
+# #   cflags_c = []
+# #   cflags_cc = []
+# #   ldflags = []
+# #   configs = []
+# #   deps =[]
+# #   part_name = "usertest"
+# #   install_enable = true
+# # }
